@@ -118,6 +118,9 @@ def createTreeNode() -> TreeNode:
 #	l1 = TreeNode(1)
 #	l1.right = l2
 #	return l1
+#		1
+#	4		3
+#	  2
 	l1 = TreeNode(1)
 	l2 = TreeNode(4)
 	l3 = TreeNode(3)
@@ -127,7 +130,7 @@ def createTreeNode() -> TreeNode:
 	l2.right = l4
 	return l1
 
-
+#中序遍历
 def inorderTraversal(root: TreeNode) -> []:
 	tempL = []
 	intL = []
@@ -157,6 +160,7 @@ def xianxu(root: TreeNode) -> []:
 	return intL
 """
 
+"""
 # 先序 使用队列思想
 def xianxu(root: TreeNode) -> []:
 	nodeL = []
@@ -167,16 +171,38 @@ def xianxu(root: TreeNode) -> []:
 			nodeL.append(root)
 			intL.append(root.val)
 			root = root.left
-
 		root = nodeL.pop()
-		if root.right: nodeL.append(root.right)
 		root = root.right
-		if root: intL.append(root.val)
 		
 	return intL
+"""
+
+# 后续遍历：左 右 中
+def houxu(root: TreeNode) -> []:
+	nodeL = []
+	intL = list()
+	prev = None
+	while root or len(nodeL):
+		while root:
+			nodeL.append(root)
+			root = root.left
+			
+		root = nodeL.pop()
+		if not root.right or prev == root.right:
+			intL.append(root.val)
+			prev = root
+			root = None
+		else:
+			nodeL.append(root)
+			root = root.right
+		
+	return intL
+	
+	
 
 L = createTreeNode()
-print(xianxu(L))
+print(houxu(L))
+
 		
 
 
