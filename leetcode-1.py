@@ -177,6 +177,7 @@ def xianxu(root: TreeNode) -> []:
 	return intL
 """
 
+"""
 # 后续遍历：左 右 中
 def houxu(root: TreeNode) -> []:
 	nodeL = []
@@ -198,10 +199,12 @@ def houxu(root: TreeNode) -> []:
 		
 	return intL
 	
-	
 
 L = createTreeNode()
 print(houxu(L))
+"""
+
+
 
 		
 
