@@ -19,10 +19,10 @@ def printList(l: ListNode):
 '''
 leetcode - 2 两数相加
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+ class ListNode:
+     def __init__(self, val=0, next=None):
+         self.val = val
+         self.next = next
 
 def addTwoNumbers(l1: ListNode, l2: ListNode) -> ListNode:
 	header = current = ListNode()
@@ -54,7 +54,7 @@ printList(list3)
 '''
 
 '''
-leetcode - 3 最长子串
+#leetcode - 3 最长子串
 def lengthOfLongestSubstring(s: str) -> int:
 	if len(s) == 0:
 		return 0
@@ -204,14 +204,74 @@ L = createTreeNode()
 print(houxu(L))
 """
 
+"""
+# 链表反转
+l1 = [1,2,3,4,5,6,7, 8, 9]
 
+listno1 = createList(l1)
+		
+def fanzhuan(l: ListNode) -> ListNode:
+	header = current = ListNode()
+	while l:
+		l1 = ListNode(l.val)
+		l1.next = header.next
+		header.next = l1
+		l = l.next
+	return header.next
+
+#printList(fanzhuan(listno1))
+"""
+
+# LRU缓存机制
+class DlinkedNode:
+	def __init__(self, key = 0, value = 0):
+		self.key = key
+		self.value = value
+		self.pre = None
+		self.next = None
+		
+class Solution:
+	cache = dict()
+	# 可以使用双向链表来实现，这里取巧，使用list
+	node = list()
+	count = 0
+	
+	def LRU(self, operations: list, k: int) -> list:
+		self.count = k
+		resultL = []
+		for i in range(len(operations)):
+			innderL = operations[i]
+			if innderL[0] == 1:
+				self.set(innderL[1], innderL[2])
+			elif innderL[0] == 2:
+				resultL.append(self.get(innderL[1]))
+		return resultL
+		
+		
+	def set(self, key: int, value: int):
+		if key in self.cache:
+			#在cache中，移动到最前
+			self.node.remove(key)
+		# 插入最前边
+		self.cache[key] = value
+		self.node.insert(0, key)
+		if len(self.node) > self.count:
+			delkey = self.node.pop()
+			self.cache.pop(delkey)
 
 		
+	def get(self, key: int) -> int:
+		if key in self.cache:
+			self.node.remove(key)
+			self.node.insert(0, key)
+			return self.cache[key]
+		else:
+			return -1
+		
 
-
-
-
-
+sol = Solution()
+operations = [[1,1,1],[1,2,2],[1,3,2],[2,1],[1,4,4],[2,2]]
+print(sol.LRU(operations, 3))
 
 
 

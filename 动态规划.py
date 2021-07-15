@@ -161,10 +161,31 @@ a = [[32], [83,68], [40,37,47], [5,4,67,22],[79,69,78,29,63], [0,71,51,82,91,64]
 # 使用递归，有很大一部分数据一直在重复计算，所以还是用空间换时间
 # 需要倒推，有一个与传进来的二维数组一样的变量
 
-def shuta_for(a: list) -> int:
-	dp = a
-	for i in range(len(a)-1, -1, -1):
-		
+#def shuta_for(a: list) -> int:
+def shuta_for(a: list):
+	dp = []
+	for i in range(len(a)-1, 0, -1):
+		if i == len(a)-1:
+			dp.insert(0, a[i])
+		innerL = []
+		for j in range(0, len(a[i])-1):
+			value = (dp[0][j] if dp[0][j] > dp[0][j+1] else dp[0][j+1]) + a[i-1][j]
+			innerL.append(value)
+		dp.insert(0, innerL)
+	print(dp)
+	print("max value = {}".format(dp[0][0]))
+	
+	value = 0
+	j = 0
+	for i in range(0, len(dp)):
+		if i > 0:
+			value -= a[i-1][j]
+		else:	
+			value = dp[0][0]
+		j = dp[i].index(value)
+		print("行：{}, 列：{}".format(i, j))
+	
+shuta_for(a)
 	
 
 
