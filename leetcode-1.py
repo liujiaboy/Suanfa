@@ -269,12 +269,33 @@ class Solution:
 			return -1
 		
 
-sol = Solution()
-operations = [[1,1,1],[1,2,2],[1,3,2],[2,1],[1,4,4],[2,2]]
-print(sol.LRU(operations, 3))
+#sol = Solution()
+#operations = [[1,1,1],[1,2,2],[1,3,2],[2,1],[1,4,4],[2,2]]
+#print(sol.LRU(operations, 3))
 
 
+"""
+# 排列好的有重复数据的list，二分查找，并输出最小的值，
+def search(numss: list, target: int):
+	if not numss:
+		return -1
+	low, high= 0, len(numss)-1
+	idx = -1
+	while low <= high:
+		mid = (low + high) // 2
+		if numss[mid] < target:
+			low = mid + 1
+		elif numss[mid] > target:
+			high = mid - 1
+		else:
+			idx = mid
+			high = mid - 1
+	return idx
 
+#list1 = [1,2,2,4]
+list1 = [-2,1,2]  #2 
+print(search(list1, 2))
+"""
 
 
 
