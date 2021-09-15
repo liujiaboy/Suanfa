@@ -298,10 +298,91 @@ print(search(list1, 2))
 """
 
 
+"""
+def maxLengthList(arr:[] ) -> []:
+	# write code here
+	# 采用队列的思路，先进先出，有重复的则移除前所有的数据
+	res = []
+	temp = []
+	for i in arr:
+		if i in temp:
+			temp[:] = temp[temp.index(i) + 1 :]
+		temp.append(i)
+		if len(res) < len(temp):
+			res = temp.copy()
+	return res
+	
+
+def maxLengthList2(arr:[] ) -> int:
+	# write code here
+	# 采用队列的思路，先进先出，有重复的则移除前所有的数据
+	temp = []
+	maxL = 0
+	for i in arr:
+		if i in temp:
+			temp[:] = temp[temp.index(i) + 1 :]
+		temp.append(i)
+		if maxL < len(temp):
+			maxL = len(temp)
+	return maxL
 
 
+arr = [1,2,3,1,2,3,2,2]
+arr = [2,3,4,5]
+print(maxLengthList2(arr))
+"""
+
+"""
+def getLessNums(tinput: [], k: int) -> []:
+	for i in range(0, len(tinput)):
+		minIdx = i
+		minVal = tinput[i]
+		for j in range(i + 1, len(tinput)):
+			if minVal > tinput[j]:
+				minVal = tinput[j]
+				minIdx = j
+		tinput[i], tinput[minIdx] = minVal, tinput[i]
+		if i == k:
+			break
+	return tinput[0:k]
+	
+print(getLessNums([4,5,1,6,2,7,3,8],4))
+"""
+
+"""
+这里会把B merge到A中。比如A = [1,2,3], B = [2,5,6]
+调用方法会变成A=[1,2,3,0,0,0]自动扩展3个元素
+然后把Bmerge到A中，最后的结果为[1,2,2,3,5,6]
+"""
+"""
+def mergeTwoList(A:[], m: int, B:[], n:int):
+	# 1. 使用双指针，这里直接使用m和n即可
+	# 2. A、B从最后一个元素进行对比
+	# 3. A的值比B大，则A[m-1]的值移动到最后，指针左移
+	# 4. B的值比A大，则直接赋值，指针左移
+	if not A or not B: return
+	while m > 0 and n > 0:
+		#
+		if A[m-1] >= B[n-1]:
+			A[m+n-1] = A[m-1]
+			m -= 1
+		else:
+			A[m+n-1] = B[n-1]
+			n -= 1
+	if n > 0: A[:n] = B[:n]
+	 
+
+A = [1,2,3,0,0,0]
+B = [2,5,6]
+mergeTwoList(A, 3, B, 3)
+print(A)
+"""
 
 
-
-
-
+def solveStr(s: str) -> str:
+	# write code here
+	l = list(s)
+	for i in range(0, len(l) // 2):
+		l[i], l[len(l)-1-i] = l[len(l)-1-i], l[i]
+	return "".join(l)
+print(solveStr("abcde"))
